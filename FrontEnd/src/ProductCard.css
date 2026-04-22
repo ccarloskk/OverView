@@ -1,0 +1,129 @@
+.product-card {
+  background: linear-gradient(145deg, #3d4420 0%, #2f3518 100%);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #4a5d23;
+}
+
+.product-card-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.product-name-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.product-name-link:hover .product-name {
+  color: #a3c644;
+}
+
+.view-details-button {
+  display: block;
+  width: 100%;
+  padding: 10px 20px;
+  background: transparent;
+  color: #a3c644;
+  text-align: center;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  border: 2px solid #4a5d23;
+  cursor: pointer;
+  margin-bottom: 12px;
+}
+
+.view-details-button:hover {
+  background: #4a5d23;
+  color: #f5f0e1;
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.product-image-container {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background-color: #1a1f0a;
+}
+
+.product-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.product-card:hover .product-image {
+  transform: scale(1.05);
+}
+
+.product-info {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.product-name {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #e8dfc8;
+  margin: 0 0 8px 0;
+  line-height: 1.3;
+}
+
+.product-price {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #a3c644;
+  margin: 0 0 12px 0;
+}
+
+.product-description {
+  font-size: 0.875rem;
+  color: #b5aa8f;
+  line-height: 1.5;
+  margin: 0 0 20px 0;
+  flex-grow: 1;
+}
+
+.product-button {
+  display: block;
+  width: 100%;
+  padding: 14px 24px;
+  background: linear-gradient(180deg, #5a6b2d 0%, #4a5d23 100%);
+  color: #f5f0e1;
+  text-align: center;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  border: 1px solid #6b7d33;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.product-button:hover {
+  background: linear-gradient(180deg, #6b7d33 0%, #5a6b2d 100%);
+  box-shadow: 0 4px 12px rgba(74, 93, 35, 0.4);
+}
+
+.product-button:active {
+  background: linear-gradient(180deg, #3d4a1a 0%, #4a5d23 100%);
+  transform: translateY(1px);
+}
