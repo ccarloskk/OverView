@@ -17,19 +17,14 @@ public class Produtos {
     private String nome;
 
     private String preco;
-
-    @Column(columnDefinition = "TEXT")
     private String descricao;
-
     private String imagemUrl;
-
-    @Column(columnDefinition = "TEXT")
     private String garantia;
 
-    @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "produtos", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Caracteristica> caracteristicas;
 
-    @OneToOne(mappedBy = "produto", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "produtos", cascade = CascadeType.ALL)
     private Especificacoes especificacoes;
 
     public Produtos(Integer idProduto, String nome, String preco, String descricao, String imagemUrl, String garantia, List<Caracteristica> caracteristicas, Especificacoes especificacoes) {

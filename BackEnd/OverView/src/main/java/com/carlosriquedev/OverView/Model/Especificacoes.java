@@ -12,13 +12,11 @@ public class Especificacoes {
 
     @Column(nullable = false)
     private String modelo;
-
     private Boolean lanterna;
-
     private String lanternaModelo;
 
     @OneToOne
-    @JoinColumn(name = "produto_id", nullable = false)
+    @JoinColumn(name = "idProduto", nullable = false)
     private Produtos produtos;
 
 

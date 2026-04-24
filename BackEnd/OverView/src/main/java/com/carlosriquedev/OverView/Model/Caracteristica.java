@@ -13,7 +13,7 @@ public class Caracteristica {
     private String caracteristica;
 
     @ManyToOne
-    @JoinColumn(name = "produto_id", nullable = false)
+    @JoinColumn(name = "idProduto", nullable = false)
     private Produtos produtos;
 
     public Caracteristica(Integer idCaracteristica, String caracteristica, Produtos produtos) {
