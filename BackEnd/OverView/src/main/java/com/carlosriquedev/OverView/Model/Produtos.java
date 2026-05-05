@@ -1,8 +1,7 @@
 package com.carlosriquedev.OverView.Model;
 
 import jakarta.persistence.*;
-
-import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -11,31 +10,34 @@ public class Produtos {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idProduto")
     private Integer idProduto;
 
-    @Column(nullable = false)
     private String nome;
-
     private String preco;
     private String descricao;
     private String imagemUrl;
     private String garantia;
 
     @OneToMany(mappedBy = "produtos", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Caracteristica> caracteristicas;
+    private List<Caracteristica> caracteristicas = new ArrayList<>();
 
-    @OneToOne(mappedBy = "produtos", cascade = CascadeType.ALL)
-    private Especificacoes especificacoes;
+    @OneToMany(mappedBy = "produtos", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Especificacoes> especificacoes = new ArrayList<>();
 
-    public Produtos(Integer idProduto, String nome, String preco, String descricao, String imagemUrl, String garantia, List<Caracteristica> caracteristicas, Especificacoes especificacoes) {
+    public Produtos() {
+    }
+
+    public Produtos(Integer idProduto, String nome, String preco, String descricao,
+                    String imagemUrl, String garantia) {
         this.idProduto = idProduto;
         this.nome = nome;
         this.preco = preco;
         this.descricao = descricao;
         this.imagemUrl = imagemUrl;
         this.garantia = garantia;
-        this.caracteristicas = caracteristicas;
-        this.especificacoes = especificacoes;
+        this.caracteristicas = new ArrayList<>();
+        this.especificacoes = new ArrayList<>();
     }
 
     public Integer getIdProduto() {
@@ -94,11 +96,21 @@ public class Produtos {
         this.caracteristicas = caracteristicas;
     }
 
-    public Especificacoes getEspecificacoes() {
+    public List<Especificacoes> getEspecificacoes() {
         return especificacoes;
     }
 
-    public void setEspecificacoes(Especificacoes especificacoes) {
+    public void setEspecificacoes(List<Especificacoes> especificacoes) {
         this.especificacoes = especificacoes;
+    }
+
+    public void adicionarCaracteristica(Caracteristica caracteristica) {
+        caracteristicas.add(caracteristica);
+        caracteristica.setProdutos(this);
+    }
+
+    public void adicionarEspecificacao(Especificacoes especificacao) {
+        especificacoes.add(especificacao);
+        especificacao.setProdutos(this);
     }
 }

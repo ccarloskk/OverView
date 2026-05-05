@@ -13,19 +13,19 @@ public class Especificacoes {
     @Column(nullable = false)
     private String modelo;
     private Boolean lanterna;
-    private String lanternaModelo;
+    private String lanterna_modelo;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "idProduto", nullable = false)
     private Produtos produtos;
 
+    public Especificacoes() {
+    }
 
-    public Especificacoes(Integer idEspecificacoes, String modelo, Boolean lanterna, String lanternaModelo, Produtos produtos) {
-        this.idEspecificacoes = idEspecificacoes;
+    public Especificacoes(String modelo, Boolean lanterna, String lanterna_modelo) {
         this.modelo = modelo;
         this.lanterna = lanterna;
-        this.lanternaModelo = lanternaModelo;
-        this.produtos = produtos;
+        this.lanterna_modelo = lanterna_modelo;
     }
 
     public Integer getIdEspecificacoes() {
@@ -52,12 +52,12 @@ public class Especificacoes {
         this.lanterna = lanterna;
     }
 
-    public String getLanternaModelo() {
-        return lanternaModelo;
+    public String getLanterna_modelo() {
+        return lanterna_modelo;
     }
 
-    public void setLanternaModelo(String lanternaModelo) {
-        this.lanternaModelo = lanternaModelo;
+    public void setLanterna_modelo(String lanterna_modelo) {
+        this.lanterna_modelo = lanterna_modelo;
     }
 
     public Produtos getProdutos() {

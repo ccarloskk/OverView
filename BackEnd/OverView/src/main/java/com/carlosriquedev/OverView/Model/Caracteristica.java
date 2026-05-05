@@ -16,10 +16,11 @@ public class Caracteristica {
     @JoinColumn(name = "idProduto", nullable = false)
     private Produtos produtos;
 
-    public Caracteristica(Integer idCaracteristica, String caracteristica, Produtos produtos) {
-        this.idCaracteristica = idCaracteristica;
+    public Caracteristica() {
+    }
+
+    public Caracteristica(String caracteristica) {
         this.caracteristica = caracteristica;
-        this.produtos = produtos;
     }
 
     public Integer getIdCaracteristica() {
