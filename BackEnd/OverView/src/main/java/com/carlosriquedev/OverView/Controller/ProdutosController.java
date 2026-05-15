@@ -16,18 +16,23 @@ public class ProdutosController {
     @Autowired
     private ProdutosService service;
 
-    @PostMapping("/criarProduto")
-    public Produtos criarproduto(@RequestBody ProdutosDto produtos) {
-        return service.criarProdutos(produtos);
-    }
-
     @GetMapping("/mostrarProduto")
     public List<Produtos> MostrarProduto() {
         return service.MostrarProdutos();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/mostrarProduto/{id}")
     public Produtos buscarPorId(@PathVariable Integer id) {
         return service.buscarPorId(id);
+    }
+
+    @PostMapping("/criarProduto")
+    public Produtos criarproduto(@RequestBody ProdutosDto produtos) {
+        return service.criarProdutos(produtos);
+    }
+
+    @PutMapping("/editarproduto/{id}")
+    public Produtos atualizarProduto(@PathVariable Long id, @RequestBody ProdutosDto produtos) {
+        return service.atualizarProdutos(id, produtos);
     }
 }

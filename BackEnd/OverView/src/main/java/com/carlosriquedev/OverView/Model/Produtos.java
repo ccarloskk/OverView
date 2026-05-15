@@ -1,5 +1,8 @@
 package com.carlosriquedev.OverView.Model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,25 +22,28 @@ public class Produtos {
     private String imagemUrl;
     private String garantia;
 
-    @OneToMany(mappedBy = "produtos", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Caracteristica> caracteristicas = new ArrayList<>();
+    @OneToOne(mappedBy = "produtos", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    @JsonIgnore
+    private Caracteristica caracteristicas = new Caracteristica();
 
-    @OneToMany(mappedBy = "produtos", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Especificacoes> especificacoes = new ArrayList<>();
+    @OneToOne(mappedBy = "produtos", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    @JsonIgnore
+    private Especificacoes especificacoes = new Especificacoes();
 
     public Produtos() {
     }
 
-    public Produtos(Integer idProduto, String nome, String preco, String descricao,
-                    String imagemUrl, String garantia) {
+    public Produtos(Integer idProduto, String preco, String nome, String descricao, String imagemUrl, String garantia, Caracteristica caracteristicas, Especificacoes especificacoes) {
         this.idProduto = idProduto;
-        this.nome = nome;
         this.preco = preco;
+        this.nome = nome;
         this.descricao = descricao;
         this.imagemUrl = imagemUrl;
         this.garantia = garantia;
-        this.caracteristicas = new ArrayList<>();
-        this.especificacoes = new ArrayList<>();
+        this.caracteristicas = caracteristicas;
+        this.especificacoes = especificacoes;
     }
 
     public Integer getIdProduto() {
@@ -88,29 +94,29 @@ public class Produtos {
         this.garantia = garantia;
     }
 
-    public List<Caracteristica> getCaracteristicas() {
+    public Caracteristica getCaracteristicas() {
         return caracteristicas;
     }
 
-    public void setCaracteristicas(List<Caracteristica> caracteristicas) {
+    public void setCaracteristicas(Caracteristica caracteristicas) {
         this.caracteristicas = caracteristicas;
     }
 
-    public List<Especificacoes> getEspecificacoes() {
+    public Especificacoes getEspecificacoes() {
         return especificacoes;
     }
 
-    public void setEspecificacoes(List<Especificacoes> especificacoes) {
+    public void setEspecificacoes(Especificacoes especificacoes) {
         this.especificacoes = especificacoes;
     }
 
     public void adicionarCaracteristica(Caracteristica caracteristica) {
-        caracteristicas.add(caracteristica);
+        this.caracteristicas = caracteristica;
         caracteristica.setProdutos(this);
     }
 
     public void adicionarEspecificacao(Especificacoes especificacao) {
-        especificacoes.add(especificacao);
+        this.especificacoes = especificacao;
         especificacao.setProdutos(this);
     }
 }

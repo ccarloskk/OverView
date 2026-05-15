@@ -18,6 +18,9 @@ public class ProdutosService {
     @Autowired
     private ProdutosRepository repository;
 
+    @Autowired
+    private CaracteristicaService caracteristicaService;
+
     public Produtos criarProdutos(ProdutosDto produtosDto) {
         Produtos produto = new Produtos();
         produto.setNome(produtosDto.getNome());
@@ -52,4 +55,26 @@ public class ProdutosService {
     public Produtos buscarPorId(Integer id) {
         return repository.findById(id).orElse(null);
     }
+
+
+    public Produtos atualizarProdutos(Long idProduto, ProdutosDto produtosDto){
+        Produtos produto = buscarPorId(idProduto.intValue());
+            produto.setNome(produtosDto.getNome());
+            produto.setDescricao(produtosDto.getDescricao());
+            produto.setPreco(produtosDto.getPreco());
+            produto.setImagemUrl(produtosDto.getImagemUrl());
+            produto.setGarantia(produtosDto.getGarantia());
+
+            Especificacoes especificacoes = produto.getEspecificacoes();
+
+            especificacoes.setModelo(produtosDto.getEspecificacoes().getModelo());
+            especificacoes.setLanterna(produtosDto.getEspecificacoes().getLanterna());
+            especificacoes.setLanterna_modelo(produtosDto.getEspecificacoes().getLanterna_modelo());
+
+            Caracteristica caracteristica = produto.getCaracteristicas();
+
+            caracteristica.setCaracteristica(produtosDto.getCaracteristicas().getCaracteristica());
+
+            return repository.save(produto);
+        }
 }

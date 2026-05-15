@@ -1,5 +1,7 @@
 package com.carlosriquedev.OverView.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -14,6 +16,8 @@ public class Caracteristica {
 
     @ManyToOne
     @JoinColumn(name = "idProduto", nullable = false)
+    @JsonManagedReference
+    @JsonIgnore
     private Produtos produtos;
 
     public Caracteristica() {
