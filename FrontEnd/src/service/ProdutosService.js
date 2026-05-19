@@ -91,3 +91,26 @@ export const atualizarProduto = async (id) => {
     throw error;
   }
 };
+
+export const deletarProduto = async (id) => {
+  try {
+    const response = await fetch(
+      `http://localhost:8080/produtos/deletarProduto/${id}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
+    );
+
+    if (!response.ok) {
+      throw new Error(`Erro ao deletar produto: ${response.statusText}`);
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Erro na requisição:", error);
+    throw error;
+  }
+};

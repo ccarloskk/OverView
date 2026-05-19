@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { mostrarProdutos } from "./service/ProdutosService";
+import { deletarProduto } from "./service/ProdutosService";
 import "./admin.css";
 
 export default function AdminProdutos() {
   const [produtos, setProdutos] = useState([]);
+  const [confirmDelete, setConfirmDelete] = useState(false);
+  const [produtoParaDeletar, setProdutoParaDeletar] = useState(null);
 
   useEffect(() => {
     const fetchProdutos = async () => {
@@ -18,6 +21,31 @@ export default function AdminProdutos() {
 
     fetchProdutos();
   }, []);
+
+  const handleDeleteClick = (produto) => {
+    setProdutoParaDeletar(produto);
+    setConfirmDelete(true);
+  };
+
+  const handleConfirmDelete = async () => {
+    try {
+      await deletarProduto(produtoParaDeletar.idProduto);
+      setProdutos(
+        produtos.filter((p) => p.idProduto !== produtoParaDeletar.idProduto),
+      );
+      setConfirmDelete(false);
+      setProdutoParaDeletar(null);
+    } catch (error) {
+      console.error("Erro ao deletar produto:", error);
+      setConfirmDelete(false);
+      setProdutoParaDeletar(null);
+    }
+  };
+
+  const handleCancelDelete = () => {
+    setConfirmDelete(false);
+    setProdutoParaDeletar(null);
+  };
 
   return (
     <div className="admin-layout">
@@ -114,7 +142,12 @@ export default function AdminProdutos() {
                       <div className="actions">
                         <button className="edit">Editar</button>
 
-                        <button className="delete">Excluir</button>
+                        <button
+                          className="delete"
+                          onClick={() => handleDeleteClick(produto)}
+                        >
+                          Excluir
+                        </button>
                       </div>
                     </td>
                   </tr>
@@ -124,6 +157,30 @@ export default function AdminProdutos() {
           </div>
         </section>
       </main>
+
+      {confirmDelete && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <h2>Confirmar Exclusão</h2>
+            <p>
+              Tem certeza que deseja excluir o produto{" "}
+              <strong>{produtoParaDeletar?.nome}</strong>?
+            </p>
+            <p className="modal-warning">Esta ação não pode ser desfeita.</p>
+            <div className="modal-actions">
+              <button className="btn-cancel" onClick={handleCancelDelete}>
+                Cancelar
+              </button>
+              <button
+                className="btn-confirm-delete"
+                onClick={handleConfirmDelete}
+              >
+                Confirmar Exclusão
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
