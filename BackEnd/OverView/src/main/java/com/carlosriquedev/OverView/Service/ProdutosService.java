@@ -77,4 +77,8 @@ public class ProdutosService {
 
             return repository.save(produto);
         }
+
+    public void deletarProduto(Integer idProduto) {
+        repository.deleteById(idProduto);
+    }
 }
