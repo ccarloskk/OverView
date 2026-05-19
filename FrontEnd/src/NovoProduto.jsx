@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { criarProduto } from "./assets/service/ProdutosService";
+import { criarProduto } from "./service/ProdutosService";
 import "./NovoProduto.css";
 
 export default function NovoProduto() {
@@ -106,7 +106,7 @@ export default function NovoProduto() {
             <input
               id="preco"
               type="number"
-              placeholder="Ex: 100"
+              placeholder="A partir de:"
               step="0.01"
               value={preco}
               onChange={(e) => setPreco(e.target.value)}

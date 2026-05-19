@@ -1,8 +1,9 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import ProductList from "./ProductList";
-import ProductDetail from "./ProductDetail";
+import ProductDetail from "./ProdutoDetalhes";
 import Admin from "./Admin";
+import NovoProduto from "./NovoProduto";
 import "./App.css";
 
 export default function App() {
@@ -11,6 +12,7 @@ export default function App() {
       <Route path="/" element={<ProductList />} />
       <Route path="/produto/:id" element={<ProductDetail />} />
       <Route path="/admin" element={<Admin />} />
+      <Route path="/admin/NovoProduto" element={<NovoProduto />} />
     </Routes>
   );
 }

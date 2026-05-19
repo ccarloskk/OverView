@@ -68,3 +68,26 @@ export const buscarProdutoPorId = async (id) => {
     throw error;
   }
 };
+
+export const atualizarProduto = async (id) => {
+  try {
+    const response = await fetch(
+      `http://localhost:8080/produtos/atualizarProduto/${id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
+    );
+
+    if (!response.ok) {
+      throw new Error(`Erro ao atualizar produto: ${response.statusText}`);
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Erro na requisição:", error);
+    throw error;
+  }
+};

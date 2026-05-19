@@ -1,131 +1,86 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { mostrarProdutos } from "./service/ProdutosService";
 import "./admin.css";
 
 export default function AdminProdutos() {
+  const [produtos, setProdutos] = useState([]);
+
+  useEffect(() => {
+    const fetchProdutos = async () => {
+      try {
+        const data = await mostrarProdutos();
+        setProdutos(data);
+      } catch (error) {
+        console.error("Erro ao buscar produtos:", error);
+      }
+    };
+
+    fetchProdutos();
+  }, []);
+
   return (
-    <div className="admin-container">
-      <header className="admin-header">
-        <div className="header-content">
-          <h1 className="admin-title">Painel Admin</h1>
-          <p className="admin-subtitle">Gerenciamento de Produtos</p>
+    <div className="admin-layout">
+      <aside className="sidebar">
+        <div className="sidebar-logo">
+          <h2>Coldres La</h2>
+          <span>Admin Painel</span>
         </div>
-      </header>
 
-      <main className="admin-main">
-        {/* Form Section */}
-        <section className="card form-card">
-          <div className="card-header">
-            <h2 className="card-title">Novo Produto</h2>
-            <span className="card-badge">Modo Criação</span>
+        <nav className="sidebar-menu">
+          <button className="menu-item active">
+            <span>📦</span>
+            Produtos em Cátalago
+          </button>
+
+          <button className="menu-item">
+            <span>⚙️</span>
+            Produtos em Estoque
+          </button>
+        </nav>
+      </aside>
+      <main className="admin-content">
+        <header className="topbar">
+          <div>
+            <h1>Painel de Produtos</h1>
+            <p>Gerencie todos os produtos da plataforma</p>
           </div>
 
-          <div className="form-section">
-            <h3 className="form-section-title">Informações Básicas</h3>
-            <div className="form-grid">
-              <div className="form-group">
-                <label>Nome do Produto *</label>
-                <input
-                  type="text"
-                  placeholder="Ex: Broca de Carbeto 10mm"
-                  className="form-input"
-                />
-              </div>
+          <div className="topbar-actions">
+            <button
+              className="btn-primary"
+              onClick={() => (window.location.href = "/admin/NovoProduto")}
+            >
+              + Novo Produto
+            </button>{" "}
+          </div>
+        </header>
 
-              <div className="form-group">
-                <label>Preço (R$) *</label>
-                <input
-                  type="number"
-                  placeholder="0.00"
-                  className="form-input"
-                />
-              </div>
-
-              <div className="form-group full-width">
-                <label>Descrição</label>
-                <textarea
-                  className="form-input form-textarea"
-                  rows="3"
-                  placeholder="Descrição detalhada..."
-                />
-              </div>
-
-              <div className="form-group">
-                <label>URL da Imagem</label>
-                <input
-                  type="url"
-                  placeholder="https://..."
-                  className="form-input"
-                />
-              </div>
-
-              <div className="form-group">
-                <label>Garantia</label>
-                <select className="form-input">
-                  <option>Selecione...</option>
-                  <option>3 meses</option>
-                  <option>6 meses</option>
-                  <option>1 ano</option>
-                  <option>2 anos</option>
-                </select>
-              </div>
-            </div>
+        <section className="stats-grid">
+          <div className="stat-card">
+            <span>Total Produtos</span>
+            <h2>0</h2>
           </div>
 
-          <div className="form-section">
-            <h3 className="form-section-title">Especificações</h3>
-            <div className="form-grid">
-              <div className="form-group">
-                <label>Modelo</label>
-                <input
-                  type="text"
-                  placeholder="Ex: XYZ-100"
-                  className="form-input"
-                />
-              </div>
-
-              <div className="form-group checkbox-group">
-                <label className="checkbox-label">
-                  <input type="checkbox" className="form-checkbox" />
-                  <span>Possui Lanterna</span>
-                </label>
-              </div>
-
-              <div className="form-group full-width">
-                <label>Modelo da Lanterna</label>
-                <input
-                  type="text"
-                  placeholder="Ex: LED-500"
-                  className="form-input"
-                />
-              </div>
-
-              <div className="form-group full-width">
-                <label>Características</label>
-                <textarea
-                  className="form-input form-textarea"
-                  rows="2"
-                  placeholder="Características..."
-                />
-              </div>
-            </div>
-          </div>
-
-          <div className="form-actions">
-            <button className="btn btn-primary">Salvar</button>
-            <button className="btn btn-secondary">Cancelar</button>
+          <div className="stat-card">
+            <span>Estoque Baixo</span>
+            <h2>0</h2>
           </div>
         </section>
 
-        {/* Table Section */}
-        <section className="card table-card">
-          <div className="card-header">
-            <h2 className="card-title">Lista de Produtos</h2>
-            <div className="search-box">
-              <input
-                type="text"
-                placeholder="Buscar por nome..."
-                className="search-input"
-              />
+        <section className="table-section">
+          <div className="table-header">
+            <div>
+              <h2>Produto Publicado</h2>
+              <p>Lista completa de produtos cadastrados</p>
+            </div>
+
+            <div className="table-actions">
+              <select className="filter-select">
+                <option>Todos</option>
+                <option>Em Estoque</option>
+                <option>Sem Estoque</option>
+              </select>
             </div>
           </div>
 
@@ -133,58 +88,39 @@ export default function AdminProdutos() {
             <table className="products-table">
               <thead>
                 <tr>
-                  <th>Nome</th>
+                  <th>Produto</th>
                   <th>Preço</th>
-                  <th>Modelo</th>
                   <th>Garantia</th>
-                  <th>Status</th>
                   <th>Ações</th>
                 </tr>
               </thead>
               <tbody>
-                <tr className="table-row">
-                  <td>
-                    <strong>Broca de Carbeto</strong>
-                  </td>
-                  <td>R$ 45.90</td>
-                  <td>XYZ-100</td>
-                  <td>
-                    <span className="badge badge-info">1 ano</span>
-                  </td>
-                  <td>
-                    <span className="badge badge-success">Com Lanterna</span>
-                  </td>
-                  <td>
-                    <button className="btn-icon btn-edit">Editar</button>
-                    <button className="btn-icon btn-delete">Excluir</button>
-                  </td>
-                </tr>
+                {produtos.map((produto) => (
+                  <tr key={produto.idProduto}>
+                    <td>
+                      <div className="product-cell">
+                        <img src={produto.imagemUrl} alt={produto.nome} />
 
-                <tr className="table-row">
-                  <td>
-                    <strong>Broca de Aço</strong>
-                  </td>
-                  <td>R$ 25.50</td>
-                  <td>ABC-50</td>
-                  <td>
-                    <span className="badge badge-info">6 meses</span>
-                  </td>
-                  <td>
-                    <span className="badge badge-default">Sem Lanterna</span>
-                  </td>
-                  <td>
-                    <button className="btn-icon btn-edit">Editar</button>
-                    <button className="btn-icon btn-delete">Excluir</button>
-                  </td>
-                </tr>
+                        <div>
+                          <strong>{produto.nome}</strong>
+                          <span>#ID {produto.idProduto}</span>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="price">R$ {produto.preco}</td>
+                    <td className="garantia">{produto.garantia}</td>
+                    <td>
+                      <div className="actions">
+                        <button className="edit">Editar</button>
+
+                        <button className="delete">Excluir</button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
-          </div>
-
-          <div className="table-footer">
-            <span>
-              Total: <strong>2</strong> produto(s)
-            </span>
           </div>
         </section>
       </main>

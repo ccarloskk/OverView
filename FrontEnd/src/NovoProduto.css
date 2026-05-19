@@ -1,7 +1,49 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --color-bg-card: #1a1a1a;
+  --color-bg-card-secondary: #333333;
+
+  --color-border: #333333;
+
+  --color-primary: #f8f9fa;
+  --color-primary-hover: #e9ecef;
+  --color-primary-active: #dfe3e6;
+
+  --color-text-title: #f8f9fa;
+  --color-text-description: #c7c7c7;
+
+  --color-white: #f8f9fa;
+
+  --shadow-card:
+    0 4px 12px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+
+  --shadow-card-hover:
+    0 8px 24px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+
+  --shadow-button-hover: 0 4px 12px rgba(248, 249, 250, 0.15);
+
+  --radius-card: 8px;
+  --radius-button: 6px;
+
+  --transition-default: 0.2s ease;
+  --transition-image: 0.3s ease;
+}
+
 .novo-produto-container {
   max-width: 900px;
   margin: 0 auto;
   padding: 40px 20px;
+  background: linear-gradient(
+    135deg,
+    var(--color-bg-card-secondary) 0%,
+    var(--color-bg-card) 100%
+  );
+  min-height: 100vh;
 }
 
 .novo-produto-header {
@@ -12,12 +54,12 @@
 .novo-produto-header h1 {
   font-size: 2.5rem;
   margin: 0 0 10px 0;
-  color: #333;
+  color: var(--color-primary-active);
 }
 
 .novo-produto-header p {
   font-size: 1rem;
-  color: #666;
+  color: var(--color-text-description);
   margin: 0;
 }
 
@@ -55,10 +97,12 @@
 
 /* Formulário */
 .novo-produto-form {
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background: var(--color-bg-card-secondary);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
   padding: 30px;
+  border: 1px solid var(--color-border);
+  transition: var(--transition-default);
 }
 
 .form-section {
@@ -74,10 +118,10 @@
 .form-section legend {
   font-size: 1.3rem;
   font-weight: 600;
-  color: #333;
+  color: var(--color-primary-active);
   padding-bottom: 15px;
   margin-bottom: 20px;
-  border-bottom: 2px solid #007bff;
+  border-bottom: 2px solid var(--color-primary-active);
   width: 100%;
 }
 
@@ -90,7 +134,7 @@
 .form-group label {
   font-weight: 500;
   margin-bottom: 8px;
-  color: #333;
+  color: var(--color-text-title);
 }
 
 .form-group input[type="text"],
@@ -98,11 +142,13 @@
 .form-group input[type="url"],
 .form-group textarea {
   padding: 12px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-button);
   font-size: 1rem;
   font-family: inherit;
-  transition: border-color 0.3s;
+  transition: var(--transition-default);
+  background: var(--color-bg-card);
+  color: var(--color-text-title);
 }
 
 .form-group input[type="text"]:focus,
@@ -110,8 +156,8 @@
 .form-group input[type="url"]:focus,
 .form-group textarea:focus {
   outline: none;
-  border-color: #007bff;
-  box-shadow: 0 0 5px rgba(0, 123, 255, 0.25);
+  border-color: var(--color-primary-active);
+  box-shadow: 0 0 5px rgba(223, 227, 230, 0.25);
 }
 
 .form-group textarea {
@@ -143,7 +189,7 @@
   gap: 15px;
   margin-top: 30px;
   padding-top: 20px;
-  border-top: 1px solid #eee;
+  border-top: 1px solid var(--color-border);
 }
 
 .btn-submit,
@@ -153,31 +199,31 @@
   font-size: 1rem;
   font-weight: 600;
   border: none;
-  border-radius: 6px;
+  border-radius: var(--radius-button);
   cursor: pointer;
-  transition: all 0.3s;
+  transition: var(--transition-default);
 }
 
 .btn-submit {
-  background-color: #007bff;
-  color: white;
+  background-color: var(--color-primary-active);
+  color: var(--color-bg-card);
 }
 
 .btn-submit:hover:not(:disabled) {
-  background-color: #0056b3;
+  background-color: var(--color-primary-hover);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+  box-shadow: var(--shadow-button-hover);
 }
 
 .btn-limpar {
-  background-color: #6c757d;
-  color: white;
+  background-color: var(--color-text-description);
+  color: var(--color-bg-card);
 }
 
 .btn-limpar:hover:not(:disabled) {
-  background-color: #5a6268;
+  background-color: var(--color-primary);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(108, 117, 125, 0.4);
+  box-shadow: var(--shadow-button-hover);
 }
 
 .btn-submit:disabled,
