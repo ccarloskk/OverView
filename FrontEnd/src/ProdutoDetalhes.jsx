@@ -84,33 +84,24 @@ export default function ProductDetail() {
               <p className="product-detail-description">{produto.descricao}</p>
             </div>
 
-            {produto.caracteristicas && produto.caracteristicas.length > 0 && (
-              <div className="product-detail-section">
-                <h2>Características</h2>
-                <ul className="product-detail-features">
-                  {produto.caracteristicas.map((caracteristica, index) => (
-                    <li key={index}>
-                      {caracteristica.caracteristica || caracteristica}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-
-            {produto.especificacoes && produto.especificacoes.length > 0 && (
+            {produto.especificacoes && (
               <div className="product-detail-section">
                 <h2>Especificações Técnicas</h2>
+
                 <div className="product-detail-specs">
-                  {produto.especificacoes.map((spec, index) => (
-                    <div key={index} className="spec-item">
-                      <span className="spec-label">Modelo:</span>
-                      <span className="spec-value">{spec.modelo}</span>
-                      <span className="spec-label">Lanterna:</span>
-                      <span className="spec-value">{spec.lanterna}</span>
-                      <span className="spec-label">Modelo Lanterna:</span>
-                      <span className="spec-value">{spec.lanterna_modelo}</span>
-                    </div>
-                  ))}
+                  <div className="spec-item">
+                    <span className="spec-label">Modelo de coldre:</span>
+                    <span className="spec-value">
+                      {produto.especificacoes.modelo}
+                    </span>
+                  </div>
+
+                  <div className="spec-item">
+                    <span className="spec-label">Modelo Lanterna:</span>
+                    <span className="spec-value">
+                      {produto.especificacoes.lanterna_modelo}
+                    </span>
+                  </div>
                 </div>
               </div>
             )}

@@ -69,7 +69,7 @@ export const buscarProdutoPorId = async (id) => {
   }
 };
 
-export const atualizarProduto = async (id) => {
+export const atualizarProduto = async (id, produto) => {
   try {
     const response = await fetch(
       `http://localhost:8080/produtos/atualizarProduto/${id}`,
@@ -78,6 +78,7 @@ export const atualizarProduto = async (id) => {
         headers: {
           "Content-Type": "application/json",
         },
+        body: JSON.stringify(produto),
       },
     );
 

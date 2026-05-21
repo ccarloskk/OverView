@@ -5,6 +5,7 @@ import ProductDetail from "./ProdutoDetalhes";
 import Admin from "./Admin";
 import NovoProduto from "./NovoProduto";
 import "./App.css";
+import AtualizarProduto from "./AtualizarProduto";
 
 export default function App() {
   return (
@@ -13,6 +14,10 @@ export default function App() {
       <Route path="/produto/:id" element={<ProductDetail />} />
       <Route path="/admin" element={<Admin />} />
       <Route path="/admin/NovoProduto" element={<NovoProduto />} />
+      <Route
+        path="/admin/AtualizarProduto/:id"
+        element={<AtualizarProduto />}
+      />
     </Routes>
   );
 }

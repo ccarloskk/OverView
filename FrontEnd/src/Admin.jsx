@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { mostrarProdutos } from "./service/ProdutosService";
-import { deletarProduto } from "./service/ProdutosService";
+import {
+  mostrarProdutos,
+  deletarProduto,
+  atualizarProduto,
+} from "./service/ProdutosService";
 import "./admin.css";
 
 export default function AdminProdutos() {
@@ -140,7 +143,14 @@ export default function AdminProdutos() {
                     <td className="garantia">{produto.garantia}</td>
                     <td>
                       <div className="actions">
-                        <button className="edit">Editar</button>
+                        <button
+                          className="edit"
+                          onClick={() =>
+                            (window.location.href = `/admin/AtualizarProduto/${produto.idProduto}`)
+                          }
+                        >
+                          Editar
+                        </button>
 
                         <button
                           className="delete"
