@@ -4,7 +4,9 @@ import com.carlosriquedev.OverView.Dto.ProdutosDto;
 import com.carlosriquedev.OverView.Model.Produtos;
 import com.carlosriquedev.OverView.Service.ProdutosService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -26,9 +28,9 @@ public class ProdutosController {
         return service.buscarPorId(id);
     }
 
-    @PostMapping("/criarProduto")
-    public Produtos criarproduto(@RequestBody ProdutosDto produtos) {
-        return service.criarProdutos(produtos);
+    @PostMapping(value = "/criarProduto", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public Produtos criarproduto(@RequestPart("produto") ProdutosDto produtos,  @RequestPart("imagem") MultipartFile file) {
+        return service.criarProdutos(produtos, file);
     }
 
     @PutMapping("/atualizarProduto/{id}")

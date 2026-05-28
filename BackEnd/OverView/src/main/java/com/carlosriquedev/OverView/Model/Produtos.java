@@ -24,13 +24,11 @@ public class Produtos {
 
     @OneToOne(mappedBy = "produtos", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
-    @JsonIgnore
-    private Caracteristica caracteristicas = new Caracteristica();
+    private Caracteristica caracteristicas;
 
     @OneToOne(mappedBy = "produtos", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
-    @JsonIgnore
-    private Especificacoes especificacoes = new Especificacoes();
+    private Especificacoes especificacoes;
 
     public Produtos() {
     }

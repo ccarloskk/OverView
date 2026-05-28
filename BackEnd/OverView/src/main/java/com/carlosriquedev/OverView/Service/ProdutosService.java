@@ -9,6 +9,7 @@ import com.carlosriquedev.OverView.Model.Produtos;
 import com.carlosriquedev.OverView.Repository.ProdutosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -21,12 +22,19 @@ public class ProdutosService {
     @Autowired
     private CaracteristicaService caracteristicaService;
 
-    public Produtos criarProdutos(ProdutosDto produtosDto) {
+    @Autowired
+    private CloudinaryService  cloudinaryService;
+
+    public Produtos criarProdutos(ProdutosDto produtosDto, MultipartFile file) {
+
         Produtos produto = new Produtos();
+
+        String urlImagem = cloudinaryService.uploadImagem(file);
+
         produto.setNome(produtosDto.getNome());
         produto.setDescricao(produtosDto.getDescricao());
         produto.setPreco(produtosDto.getPreco());
-        produto.setImagemUrl(produtosDto.getImagemUrl());
+        produto.setImagemUrl(urlImagem);
         produto.setGarantia(produtosDto.getGarantia());
 
         if (produtosDto.getEspecificacoes() != null) {
@@ -35,10 +43,8 @@ public class ProdutosService {
             especificacao.setModelo(especDto.getModelo());
             especificacao.setLanterna(especDto.getLanterna());
             especificacao.setLanterna_modelo(especDto.getLanterna_modelo());
-
             produto.adicionarEspecificacao(especificacao);
         }
-
         if (produtosDto.getCaracteristicas() != null) {
             CaracteristicaDto caracDto = produtosDto.getCaracteristicas();
             Caracteristica caracteristica = new Caracteristica();
