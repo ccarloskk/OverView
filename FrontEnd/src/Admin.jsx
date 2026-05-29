@@ -59,7 +59,7 @@ export default function AdminProdutos() {
         </div>
 
         <nav className="sidebar-menu">
-          <button className="menu-item active">
+          <button className="menu-item acti`ve">
             <span>📦</span>
             Produtos em Cátalago
           </button>

@@ -172,6 +172,12 @@
 }
 
 .product-detail-features {
+  padding: 12px 16px;
+  background-color: var(--color-primary);
+  color: var(--color-bg-card-secondary);
+  border-radius: var(--radius-button);
+  border: 1px solid var(--color-border);
+  gap: 6px;
   list-style: none;
   padding: 0;
   margin: 0;
@@ -179,17 +185,18 @@
 
 .product-detail-features li {
   font-size: 0.95rem;
-  color: var(--color-text-description);
+  color: var(--color-bg-card-secondary);
   line-height: 1.8;
   padding-left: 24px;
   position: relative;
 }
 
 .product-detail-features li::before {
+  padding: 0px 8px;
   content: "✓";
   position: absolute;
   left: 0;
-  color: var(--color-primary-active);
+  color: var(--color-bg-card-secondary);
   font-weight: bold;
   transition: var(--transition-default);
 }

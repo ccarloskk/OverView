@@ -140,7 +140,7 @@ export default function AtualizarProduto() {
             <input
               id="nome"
               type="text"
-              placeholder="Ex: iPhone 15"
+              placeholder="Ex: Coldre G3"
               value={nome}
               onChange={(e) => setNome(e.target.value)}
               required
@@ -202,7 +202,7 @@ export default function AtualizarProduto() {
             <input
               id="modelo"
               type="text"
-              placeholder="Ex: XYZ-100"
+              placeholder="Ex: Velado, clipe duplo"
               value={especificacoesModelo}
               onChange={(e) => setEspecificacoesModelo(e.target.value)}
             />
@@ -224,7 +224,7 @@ export default function AtualizarProduto() {
               <input
                 id="lanternaModelo"
                 type="text"
-                placeholder="Ex: LED-500"
+                placeholder="Ex: GM23 TRUSTFIRE"
                 value={especificacoesLanternaModelo}
                 onChange={(e) =>
                   setEspecificacoesLanternaModelo(e.target.value)
@@ -242,7 +242,7 @@ export default function AtualizarProduto() {
             <input
               id="caracteristica"
               type="text"
-              placeholder="Ex: Resistente à água"
+              placeholder="Ex: Materiais de boa qualidade"
               value={caracteristica}
               onChange={(e) => setCaracteristica(e.target.value)}
             />

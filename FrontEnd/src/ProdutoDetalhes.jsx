@@ -84,6 +84,16 @@ export default function ProductDetail() {
               <p className="product-detail-description">{produto.descricao}</p>
             </div>
 
+            {produto.caracteristicas.caracteristica && (
+              <div className="product-detail-section">
+                <h2>Características</h2>
+
+                <ul className="product-detail-features">
+                  <li>{produto.caracteristicas.caracteristica}</li>
+                </ul>
+              </div>
+            )}
+
             {produto.especificacoes && (
               <div className="product-detail-section">
                 <h2>Especificações Técnicas</h2>

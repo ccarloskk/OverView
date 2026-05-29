@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { criarProduto } from "./service/ProdutosService";
 import "./NovoProduto.css";
 
@@ -6,7 +7,7 @@ export default function NovoProduto() {
   const [nome, setNome] = useState("");
   const [descricao, setDescricao] = useState("");
   const [preco, setPreco] = useState("");
-  const [imagemUrl, setImagemUrl] = useState("");
+  const [imagemFile, setImagemFile] = useState("");
   const [garantia, setGarantia] = useState("");
   const [especificacoesModelo, setEspecificacoesModelo] = useState("");
   const [especificacoesLanterna, setEspecificacoesLanterna] = useState(false);
@@ -15,6 +16,7 @@ export default function NovoProduto() {
   const [caracteristica, setCaracteristica] = useState("");
   const [mensagem, setMensagem] = useState(null);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -27,11 +29,19 @@ export default function NovoProduto() {
       return;
     }
 
+    if (!imagemFile) {
+      setMensagem({
+        tipo: "erro",
+        texto: "Selecione uma imagem para o produto",
+      });
+      setLoading(false);
+      return;
+    }
+
     const produto = {
       nome: nome.trim(),
       preco: String(preco).trim(),
       descricao: descricao.trim(),
-      imagemUrl: imagemUrl.trim(),
       garantia: garantia.trim(),
       especificacoes: {
         modelo: especificacoesModelo.trim(),
@@ -44,12 +54,9 @@ export default function NovoProduto() {
     };
 
     try {
-      await criarProduto(produto);
-      setMensagem({
-        tipo: "sucesso",
-        texto: "Produto criado com sucesso!",
-      });
-      limparFormulario();
+      await criarProduto(produto, imagemFile);
+      navigate("/admin");
+      return;
     } catch (error) {
       setMensagem({
         tipo: "erro",
@@ -60,16 +67,8 @@ export default function NovoProduto() {
     }
   }
 
-  function limparFormulario() {
-    setNome("");
-    setDescricao("");
-    setPreco("");
-    setImagemUrl("");
-    setGarantia("");
-    setEspecificacoesModelo("");
-    setEspecificacoesLanterna(false);
-    setEspecificacoesLanternaModelo("");
-    setCaracteristica("");
+  function cancelar() {
+    navigate("/admin");
   }
 
   return (
@@ -94,7 +93,7 @@ export default function NovoProduto() {
             <input
               id="nome"
               type="text"
-              placeholder="Ex: iPhone 15"
+              placeholder="Ex: Coldre G3"
               value={nome}
               onChange={(e) => setNome(e.target.value)}
               required
@@ -126,13 +125,27 @@ export default function NovoProduto() {
           </div>
 
           <div className="form-group">
-            <label htmlFor="imagemUrl">URL da Imagem</label>
+            <label htmlFor="imagemFile">Selecione um arquivo de imagem</label>
             <input
-              id="imagemUrl"
-              type="url"
-              placeholder="Ex: https://exemplo.com/imagem.jpg"
-              value={imagemUrl}
-              onChange={(e) => setImagemUrl(e.target.value)}
+              id="imagemFile"
+              type="file"
+              accept=".jpeg,.jpg,.png"
+              onChange={(e) => {
+                const file = e.target.files[0];
+                if (file) {
+                  const validTypes = ["image/jpeg", "image/png"];
+                  if (!validTypes.includes(file.type)) {
+                    setMensagem({
+                      tipo: "erro",
+                      texto: "Apenas arquivos .jpeg e .png são permitidos",
+                    });
+                    setImagemFile(null);
+                  } else {
+                    setMensagem(null);
+                    setImagemFile(file);
+                  }
+                }
+              }}
             />
           </div>
 
@@ -156,7 +169,7 @@ export default function NovoProduto() {
             <input
               id="modelo"
               type="text"
-              placeholder="Ex: XYZ-100"
+              placeholder="Ex: Velado, clipe duplo"
               value={especificacoesModelo}
               onChange={(e) => setEspecificacoesModelo(e.target.value)}
             />
@@ -178,7 +191,7 @@ export default function NovoProduto() {
               <input
                 id="lanternaModelo"
                 type="text"
-                placeholder="Ex: LED-500"
+                placeholder="Ex: GM23 TRUSTFIRE"
                 value={especificacoesLanternaModelo}
                 onChange={(e) =>
                   setEspecificacoesLanternaModelo(e.target.value)
@@ -196,7 +209,7 @@ export default function NovoProduto() {
             <input
               id="caracteristica"
               type="text"
-              placeholder="Ex: Resistente à água"
+              placeholder="Ex: Materiais de boa qualidade"
               value={caracteristica}
               onChange={(e) => setCaracteristica(e.target.value)}
             />
@@ -210,10 +223,10 @@ export default function NovoProduto() {
           <button
             type="button"
             className="btn-limpar"
-            onClick={limparFormulario}
+            onClick={cancelar}
             disabled={loading}
           >
-            Limpar Formulário
+            Cancelar
           </button>
         </div>
       </form>
