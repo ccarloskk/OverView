@@ -9,5 +9,4 @@ public class OverViewApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(OverViewApplication.class, args);
 	}
-
 }
