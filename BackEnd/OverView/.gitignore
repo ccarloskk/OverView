@@ -32,4 +32,4 @@ build/
 ### VS Code ###
 .vscode/
 
-.BackEnd/OverView/tree/main/BackEnd/OverView/src/main/resources/application.properties
+.BackEnd/OverView/src/main/resources/application.properties
