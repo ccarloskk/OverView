@@ -37,4 +37,20 @@ public class UsuarioService {
         usuario.setPassword(senhaCriptografada);
         return usuarioRepository.save(usuario);
     }
+
+    public Usuario loginUsuario(Usuario usuarioLogin) {
+        Usuario usuario = usuarioRepository
+                .findByEmail(usuarioLogin.getEmail())
+                .orElseThrow(() ->
+                        new RuntimeException("Usuário não encontrado"));
+
+        boolean senhaCorreta = bCryptPasswordEncoder.matches(
+                usuarioLogin.getPassword(),
+                usuario.getPassword()
+        );
+        if (!senhaCorreta) {
+            throw new RuntimeException("Senha inválida");
+        }
+        return usuario;
+    }
 }
