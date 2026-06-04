@@ -6,6 +6,7 @@ import Admin from "./Admin";
 import NovoProduto from "./NovoProduto";
 import "./App.css";
 import AtualizarProduto from "./AtualizarProduto";
+import LoginAdmin from "./LoginAdmin";
 
 export default function App() {
   return (
@@ -18,6 +19,7 @@ export default function App() {
         path="/admin/AtualizarProduto/:id"
         element={<AtualizarProduto />}
       />
+      <Route path="/login" element={<LoginAdmin />} />
     </Routes>
   );
 }
